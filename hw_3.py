@@ -2,7 +2,6 @@ import json
 
 class CustomEncoder(json.JSONEncoder):
     def default(self, o):
-        print('Object to be encoded : ', type(o))
         obj = dict()
         if type(o) == Course:
             obj = o.__dict__
@@ -18,7 +17,6 @@ class CustomDecoder(json.JSONDecoder):
         json.JSONDecoder.__init__(self, object_hook=self.dict_to_object)
         
     def dict_to_object(self, o):
-        print('Object to be decoded : ', o)
         obj = None
         if o['class'] == 'Course':
             obj = Course(o['_courseName'], o['_grade'])
@@ -43,11 +41,11 @@ class Student:
         self._courses.append(Course(cn, g))
 
 lObj = list()
-pObj = Student(12345, 'John', 'Chen')
+pObj = Student(12345, 'Chan', 'Park')
 print(pObj)
-pObj.addCourse('math', 'b')
-pObj.addCourse('english', 'a')
-pObj.addCourse('art', 'a')
+pObj.addCourse('Math', 'B')
+pObj.addCourse('English', 'A')
+pObj.addCourse('Art', 'A')
 print(pObj)
 
 outString = json.dumps(pObj, cls=CustomEncoder, indent=4)
